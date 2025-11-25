@@ -18,11 +18,6 @@
           
           <h3 class="text-2xl font-serif text-[#062b1f] mb-1">{{ member.name }}</h3>
           <p class="text-[#1FA34A] font-medium tracking-wide uppercase text-sm mb-4">{{ member.role }}</p>
-          
-          <div class="flex space-x-4 opacity-60 hover:opacity-100 transition-opacity">
-            <a href="#" class="text-[#062b1f] hover:text-[#1FA34A]">LinkedIn</a>
-            <a href="#" class="text-[#062b1f] hover:text-[#1FA34A]">Twitter</a>
-          </div>
         </div>
       </div>
     </div>
@@ -32,7 +27,7 @@
 <script setup lang="ts">
 const team = [
   {
-    name: 'Dr. Marcus Chen',
+    name: 'Dr. Marco Ferretti',
     role: 'Chief Executive Officer',
     image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=2574&auto=format&fit=crop',
     bio: 'Visionary leader with expertise in behavioral science and data analytics. Drives strategic direction and oversees all operations.'
@@ -40,7 +35,7 @@ const team = [
   {
     name: 'Dr. Sarah Mitchell',
     role: 'Head of Behavioral Psychology',
-    image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=2569&auto=format&fit=crop',
+    image: '/dr_sarah_mitchell_portrait_1764066826180.png',
     bio: 'Leading expert in psychographic profiling and cognitive pattern analysis. Develops advanced behavioral classification systems.'
   },
   {
@@ -50,7 +45,7 @@ const team = [
     bio: 'Full-stack developer specializing in AI systems and data infrastructure. Architect of Node and core platform technologies.'
   },
   {
-    name: 'Dr. James Park',
+    name: 'Dr. Luca Moretti',
     role: 'Director of Data Science',
     image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=2574&auto=format&fit=crop',
     bio: 'Expert in machine learning and predictive modeling. Leads development of behavioral prediction algorithms and cluster analysis.'

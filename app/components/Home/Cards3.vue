@@ -25,7 +25,7 @@
 
         <!-- Card 3 -->
         <NuxtLink to="/research" class="relative group cursor-pointer overflow-hidden rounded-lg shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 block">
-          <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2672&auto=format&fit=crop" class="w-full h-[480px] object-cover transition-transform duration-700 group-hover:scale-110" />
+          <img src="/images/territorial-mapping.png" class="w-full h-[480px] object-cover transition-transform duration-700 group-hover:scale-110" />
           <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-8 text-white">
             <div class="w-10 h-[2px] bg-white mb-3 transition-all duration-300 group-hover:w-20"></div>
             <h3 class="text-2xl font-serif mb-2">Territorial Mapping</h3>

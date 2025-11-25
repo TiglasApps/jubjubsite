@@ -4,7 +4,7 @@
       <div class="mb-12">
         <h2 class="text-3xl font-serif text-[#062b1f] mb-4">Open Positions</h2>
         <p class="text-gray-600 max-w-xl">
-          We are seeking exceptional talent for senior-level positions. Join our team of elite professionals shaping the future of behavioral analytics and data-driven influence.
+          We're looking for people who share our vision and passion for understanding and shaping the human mind. Join us in exploring the frontiers of behavioral science and human cognition.
         </p>
       </div>
 
@@ -37,7 +37,7 @@
 
     <!-- Application Modal -->
     <Transition name="modal">
-      <div v-if="selectedJob" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm" @click.self="closeModal">
+      <div v-if="selectedJob" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60" @click.self="closeModal">
         <div class="bg-white rounded-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
           <!-- Header -->
           <div class="sticky top-0 bg-[#062b1f] text-white p-6 rounded-t-xl">
@@ -103,34 +103,34 @@
                 <!-- Name & Email -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Full Name *</label>
-                    <input 
-                      type="text" 
-                      required
-                      v-model="formData.name"
-                      class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1FA34A] focus:border-transparent outline-none"
-                      placeholder="John Doe"
-                    />
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Full Name *</label>
+                  <input 
+                    type="text" 
+                    required
+                    v-model="formData.name"
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1FA34A] focus:border-transparent outline-none text-gray-900"
+                    placeholder="John Doe"
+                  />
                   </div>
                   <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Email *</label>
-                    <input 
-                      type="email" 
-                      required
-                      v-model="formData.email"
-                      class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1FA34A] focus:border-transparent outline-none"
-                      placeholder="john@example.com"
-                    />
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Email *</label>
+                  <input 
+                    type="email" 
+                    required
+                    v-model="formData.email"
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1FA34A] focus:border-transparent outline-none text-gray-900"
+                    placeholder="john@example.com"
+                  />
                   </div>
                 </div>
 
                 <!-- LinkedIn -->
                 <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-2">LinkedIn Profile</label>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">LinkedIn Profile (Optional)</label>
                   <input 
                     type="url"
                     v-model="formData.linkedin"
-                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1FA34A] focus:border-transparent outline-none"
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1FA34A] focus:border-transparent outline-none text-gray-900"
                     placeholder="https://linkedin.com/in/yourprofile"
                   />
                 </div>
@@ -178,11 +178,11 @@
 
                 <!-- Cover Letter -->
                 <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-2">Cover Letter</label>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Cover Letter (Optional)</label>
                   <textarea 
                     v-model="formData.coverLetter"
                     rows="4"
-                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1FA34A] focus:border-transparent outline-none resize-none"
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1FA34A] focus:border-transparent outline-none resize-none text-gray-900"
                     placeholder="Tell us why you're the perfect fit for this role..."
                   ></textarea>
                 </div>
@@ -191,7 +191,13 @@
                 <div class="flex gap-4">
                   <button 
                     type="submit"
-                    class="flex-1 px-6 py-3 bg-[#062b1f] text-white font-semibold rounded-lg hover:bg-[#0a4d35] transition-colors"
+                    :disabled="!isFormValid"
+                    :class="[
+                      'flex-1 px-6 py-3 font-semibold rounded-lg transition-all',
+                      isFormValid 
+                        ? 'bg-[#062b1f] text-white hover:bg-[#0a4d35] cursor-pointer' 
+                        : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                    ]"
                   >
                     Submit Application
                   </button>
@@ -209,20 +215,37 @@
         </div>
       </div>
     </Transition>
+
+    <!-- Toast Notification -->
+    <Transition name="toast">
+      <div v-if="showToast" class="fixed bottom-8 right-8 bg-[#1FA34A] text-white px-6 py-4 rounded-lg shadow-2xl flex items-center gap-3 z-50">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        <span class="font-semibold">Application submitted successfully!</span>
+      </div>
+    </Transition>
   </section>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
 const selectedJob = ref(null)
 const isDragging = ref(false)
 const uploadedFile = ref(null)
+const showToast = ref(false)
 const formData = ref({
   name: '',
   email: '',
   linkedin: '',
   coverLetter: ''
+})
+
+const isFormValid = computed(() => {
+  return formData.value.name.trim() !== '' && 
+         formData.value.email.trim() !== '' && 
+         uploadedFile.value !== null
 })
 
 const jobs = [
@@ -355,6 +378,60 @@ const jobs = [
       'Comprehensive benefits with mental health and wellness focus'
     ],
     salary: '$250K - $400K + Equity'
+  },
+  {
+    id: 6,
+    title: 'Junior Developer',
+    department: 'Engineering',
+    location: 'Remote',
+    type: 'Full-time',
+    description: 'Join our engineering team as a Junior Developer and contribute to building innovative web applications and data visualization tools. You will work alongside experienced developers, learning best practices while contributing to real-world projects that impact millions of users. This is an excellent opportunity for recent graduates or career changers to grow their skills in a cutting-edge tech environment.',
+    requirements: [
+      'Bachelor\'s degree in Computer Science, Engineering, or related field (or equivalent practical experience)',
+      'Solid understanding of JavaScript/TypeScript and at least one modern framework (React, Vue, or Angular)',
+      'Basic knowledge of HTML, CSS, and responsive web design principles',
+      'Familiarity with Git version control and collaborative development workflows',
+      'Understanding of RESTful APIs and basic database concepts',
+      'Strong problem-solving skills and eagerness to learn new technologies',
+      'Good communication skills and ability to work in a team environment'
+    ],
+    benefits: [
+      'Competitive entry-level compensation: $60,000 - $85,000 base + equity',
+      'Comprehensive mentorship program with senior developers',
+      'Annual learning budget of $3,000 for courses, books, and conferences',
+      'Flexible work schedule with remote-first culture',
+      'Health, dental, and vision insurance',
+      'Career growth opportunities with clear advancement paths',
+      'Modern development tools and equipment provided'
+    ],
+    salary: '$60K - $85K + Equity'
+  },
+  {
+    id: 7,
+    title: 'Communications Manager - Entry Level',
+    department: 'Marketing & Communications',
+    location: 'Remote',
+    type: 'Full-time',
+    description: 'Launch your career in strategic communications with JubJub Lab. You will help craft compelling narratives about our work, manage social media presence, create content for various platforms, and support our public relations efforts. This role offers hands-on experience in tech communications and the opportunity to shape how we present groundbreaking behavioral science to the world.',
+    requirements: [
+      'Bachelor\'s degree in Communications, Marketing, Journalism, or related field',
+      'Excellent written and verbal communication skills in English (additional languages a plus)',
+      'Experience with social media platforms and content management systems',
+      'Basic understanding of digital marketing and SEO principles',
+      'Strong organizational skills and ability to manage multiple projects',
+      'Creative mindset with attention to detail',
+      'Portfolio of writing samples or previous content work (academic or professional)'
+    ],
+    benefits: [
+      'Competitive entry-level compensation: $50,000 - $70,000 base + equity',
+      'Professional development in strategic communications and PR',
+      'Annual budget of $2,000 for professional development and certifications',
+      'Flexible remote work with occasional travel opportunities',
+      'Health and wellness benefits package',
+      'Collaborative team environment with growth opportunities',
+      'Access to industry events and networking opportunities'
+    ],
+    salary: '$50K - $70K + Equity'
   }
 ]
 
@@ -391,10 +468,7 @@ const removeFile = () => {
 }
 
 const submitApplication = () => {
-  if (!uploadedFile.value) {
-    alert('Please upload your CV')
-    return
-  }
+  if (!isFormValid.value) return
   
   // Here you would typically send the data to your backend
   console.log('Application submitted:', {
@@ -403,8 +477,18 @@ const submitApplication = () => {
     cv: uploadedFile.value.name
   })
   
-  alert('Application submitted successfully! We will review your application and get back to you soon.')
-  closeModal()
+  // Show toast notification
+  showToast.value = true
+  
+  // Close modal after a short delay
+  setTimeout(() => {
+    closeModal()
+  }, 500)
+  
+  // Hide toast after 3 seconds
+  setTimeout(() => {
+    showToast.value = false
+  }, 3500)
 }
 </script>
 
@@ -427,5 +511,20 @@ const submitApplication = () => {
 .modal-enter-from .bg-white,
 .modal-leave-to .bg-white {
   transform: scale(0.9);
+}
+
+.toast-enter-active,
+.toast-leave-active {
+  transition: all 0.3s ease;
+}
+
+.toast-enter-from {
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+.toast-leave-to {
+  transform: translateY(100%);
+  opacity: 0;
 }
 </style>

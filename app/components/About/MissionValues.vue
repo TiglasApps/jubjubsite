@@ -20,6 +20,55 @@
       </div>
     </section>
 
+    <!-- Visual Break: Image Grid -->
+    <section class="py-0 bg-gray-900">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+        <div class="relative h-80 overflow-hidden group">
+          <img 
+            src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2670&auto=format&fit=crop" 
+            alt="Data Analysis" 
+            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-[#062b1f]/90 via-[#062b1f]/40 to-transparent flex items-end p-6">
+            <h3 class="text-white text-xl font-bold">Data Analysis</h3>
+          </div>
+        </div>
+        
+        <div class="relative h-80 overflow-hidden group">
+          <img 
+            src="https://images.unsplash.com/photo-1559757175-5700dde675bc?q=80&w=2831&auto=format&fit=crop" 
+            alt="Neuroscience" 
+            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-[#062b1f]/90 via-[#062b1f]/40 to-transparent flex items-end p-6">
+            <h3 class="text-white text-xl font-bold">Neuroscience</h3>
+          </div>
+        </div>
+        
+        <div class="relative h-80 overflow-hidden group">
+          <img 
+            src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?q=80&w=2940&auto=format&fit=crop" 
+            alt="Behavioral Insights" 
+            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-[#062b1f]/90 via-[#062b1f]/40 to-transparent flex items-end p-6">
+            <h3 class="text-white text-xl font-bold">Behavioral Insights</h3>
+          </div>
+        </div>
+        
+        <div class="relative h-80 overflow-hidden group">
+          <img 
+            src="https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?q=80&w=2874&auto=format&fit=crop" 
+            alt="Technology" 
+            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-[#062b1f]/90 via-[#062b1f]/40 to-transparent flex items-end p-6">
+            <h3 class="text-white text-xl font-bold">Technology</h3>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Mission -->
     <section class="relative py-32 bg-gradient-to-br from-[#062b1f] to-[#0a4d35] text-white overflow-hidden">
       <!-- Background Image -->
