@@ -1,18 +1,11 @@
 <template>
   <section class="py-16 bg-white">
     <div class="max-w-6xl mx-auto px-4 md:px-6">
-      <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-12">
-        <div>
-          <h2 class="text-3xl font-serif text-[#062b1f] mb-4">Open Positions</h2>
-          <p class="text-gray-600 max-w-xl">
-            Join our team of scientists, engineers, and innovators working to solve the most important problem in biology.
-          </p>
-        </div>
-        <div class="mt-6 md:mt-0">
-          <button class="px-6 py-2 border border-gray-300 rounded-full text-gray-600 hover:border-[#1FA34A] hover:text-[#1FA34A] transition-colors">
-            Filter by Department
-          </button>
-        </div>
+      <div class="mb-12">
+        <h2 class="text-3xl font-serif text-[#062b1f] mb-4">Open Positions</h2>
+        <p class="text-gray-600 max-w-xl">
+          We are seeking exceptional talent for senior-level positions. Join our team of elite professionals shaping the future of behavioral analytics and data-driven influence.
+        </p>
       </div>
 
       <div class="space-y-4">
@@ -31,45 +24,408 @@
               </div>
             </div>
             
-            <button class="px-6 py-2 bg-[#062b1f] text-white rounded-full opacity-0 group-hover:opacity-100 transform translate-x-4 group-hover:translate-x-0 transition-all duration-300">
+            <button 
+              @click="openModal(job)"
+              class="px-6 py-2 bg-[#062b1f] text-white rounded-full opacity-0 group-hover:opacity-100 transform translate-x-4 group-hover:translate-x-0 transition-all duration-300"
+            >
               Apply Now
             </button>
           </div>
         </div>
       </div>
     </div>
+
+    <!-- Application Modal -->
+    <Transition name="modal">
+      <div v-if="selectedJob" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm" @click.self="closeModal">
+        <div class="bg-white rounded-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
+          <!-- Header -->
+          <div class="sticky top-0 bg-[#062b1f] text-white p-6 rounded-t-xl">
+            <div class="flex justify-between items-start">
+              <div>
+                <span class="inline-block px-3 py-1 bg-white/20 text-white text-xs font-semibold tracking-wider uppercase rounded-full mb-3">
+                  {{ selectedJob.department }}
+                </span>
+                <h2 class="text-2xl md:text-3xl font-serif">{{ selectedJob.title }}</h2>
+                <p class="text-white/80 mt-2">📍 {{ selectedJob.location }} • 🕒 {{ selectedJob.type }}</p>
+              </div>
+              <button @click="closeModal" class="text-white/80 hover:text-white text-3xl leading-none">&times;</button>
+            </div>
+          </div>
+
+          <!-- Content -->
+          <div class="p-6 md:p-8">
+            <!-- Job Description -->
+            <div class="mb-8">
+              <h3 class="text-xl font-bold text-[#062b1f] mb-4">Position Overview</h3>
+              <p class="text-gray-700 leading-relaxed">{{ selectedJob.description }}</p>
+            </div>
+
+            <!-- Requirements -->
+            <div class="mb-8">
+              <h3 class="text-xl font-bold text-[#062b1f] mb-4">Requirements</h3>
+              <ul class="space-y-3">
+                <li v-for="req in selectedJob.requirements" :key="req" class="flex items-start gap-3">
+                  <svg class="w-5 h-5 text-[#1FA34A] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                  <span class="text-gray-700">{{ req }}</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Benefits & Compensation -->
+            <div class="mb-8">
+              <h3 class="text-xl font-bold text-[#062b1f] mb-4">Benefits & Compensation</h3>
+              <div class="bg-[#1FA34A]/5 border border-[#1FA34A]/20 rounded-lg p-4 mb-4">
+                <div class="flex items-center gap-2 mb-2">
+                  <svg class="w-5 h-5 text-[#1FA34A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                  <span class="font-bold text-[#062b1f]">{{ selectedJob.salary }}</span>
+                </div>
+              </div>
+              <ul class="space-y-3">
+                <li v-for="benefit in selectedJob.benefits" :key="benefit" class="flex items-start gap-3">
+                  <svg class="w-5 h-5 text-[#1FA34A] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span class="text-gray-700">{{ benefit }}</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Application Form -->
+            <div class="border-t pt-8">
+              <h3 class="text-xl font-bold text-[#062b1f] mb-6">Submit Your Application</h3>
+              
+              <form @submit.prevent="submitApplication" class="space-y-6">
+                <!-- Name & Email -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Full Name *</label>
+                    <input 
+                      type="text" 
+                      required
+                      v-model="formData.name"
+                      class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1FA34A] focus:border-transparent outline-none"
+                      placeholder="John Doe"
+                    />
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Email *</label>
+                    <input 
+                      type="email" 
+                      required
+                      v-model="formData.email"
+                      class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1FA34A] focus:border-transparent outline-none"
+                      placeholder="john@example.com"
+                    />
+                  </div>
+                </div>
+
+                <!-- LinkedIn -->
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">LinkedIn Profile</label>
+                  <input 
+                    type="url"
+                    v-model="formData.linkedin"
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1FA34A] focus:border-transparent outline-none"
+                    placeholder="https://linkedin.com/in/yourprofile"
+                  />
+                </div>
+
+                <!-- CV Upload - Drag & Drop -->
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Resume/CV *</label>
+                  <div 
+                    @dragover.prevent="isDragging = true"
+                    @dragleave.prevent="isDragging = false"
+                    @drop.prevent="handleDrop"
+                    :class="[
+                      'border-2 border-dashed rounded-lg p-8 text-center transition-all cursor-pointer',
+                      isDragging ? 'border-[#1FA34A] bg-[#1FA34A]/5' : 'border-gray-300 hover:border-[#1FA34A]'
+                    ]"
+                    @click="$refs.fileInput.click()"
+                  >
+                    <input 
+                      ref="fileInput"
+                      type="file" 
+                      accept=".pdf,.doc,.docx"
+                      @change="handleFileSelect"
+                      class="hidden"
+                    />
+                    <div v-if="!uploadedFile">
+                      <svg class="w-12 h-12 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                      </svg>
+                      <p class="text-gray-600 mb-2">Drag and drop your CV here, or click to browse</p>
+                      <p class="text-sm text-gray-500">PDF, DOC, DOCX (Max 10MB)</p>
+                    </div>
+                    <div v-else class="flex items-center justify-center gap-3">
+                      <svg class="w-8 h-8 text-[#1FA34A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                      </svg>
+                      <span class="text-gray-700 font-medium">{{ uploadedFile.name }}</span>
+                      <button type="button" @click.stop="removeFile" class="text-red-500 hover:text-red-700">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Cover Letter -->
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Cover Letter</label>
+                  <textarea 
+                    v-model="formData.coverLetter"
+                    rows="4"
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1FA34A] focus:border-transparent outline-none resize-none"
+                    placeholder="Tell us why you're the perfect fit for this role..."
+                  ></textarea>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="flex gap-4">
+                  <button 
+                    type="submit"
+                    class="flex-1 px-6 py-3 bg-[#062b1f] text-white font-semibold rounded-lg hover:bg-[#0a4d35] transition-colors"
+                  >
+                    Submit Application
+                  </button>
+                  <button 
+                    type="button"
+                    @click="closeModal"
+                    class="px-6 py-3 border-2 border-gray-300 text-gray-700 font-semibold rounded-lg hover:border-gray-400 transition-colors"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Transition>
   </section>
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
+
+const selectedJob = ref(null)
+const isDragging = ref(false)
+const uploadedFile = ref(null)
+const formData = ref({
+  name: '',
+  email: '',
+  linkedin: '',
+  coverLetter: ''
+})
+
 const jobs = [
   {
     id: 1,
-    title: 'Lead Data Scientist',
-    department: 'Predictive Analytics',
-    location: 'San Francisco, CA',
-    type: 'Full-time'
+    title: 'Senior AI/ML Architect',
+    department: 'Artificial Intelligence',
+    location: 'Remote',
+    type: 'Full-time',
+    description: 'Lead the design and implementation of cutting-edge AI/ML systems for behavioral prediction and psychographic profiling. You will architect scalable machine learning pipelines that process millions of data points daily, developing novel algorithms for personality cluster identification and behavioral forecasting.',
+    requirements: [
+      'PhD in Computer Science, Machine Learning, or Cognitive Science from a top-10 global institution',
+      'Multiple first-author publications in NeurIPS, ICML, ICLR, or CVPR with significant citation impact',
+      'Demonstrated expertise in novel neural architecture design and algorithmic innovation',
+      'Proven ability to architect and deploy ML systems processing petabyte-scale datasets',
+      'Deep theoretical understanding of information theory, Bayesian inference, and causal modeling',
+      'Track record of patents or breakthrough contributions to open-source ML frameworks',
+      'Fluency in multiple programming paradigms and ability to optimize at the hardware level'
+    ],
+    benefits: [
+      'Competitive compensation: $300,000 - $500,000 base + equity',
+      'Unlimited PTO with mandatory 4-week minimum',
+      'Annual research budget of $50,000 for conferences, equipment, and publications',
+      'Access to state-of-the-art GPU clusters and cloud computing resources',
+      'Relocation assistance and global remote work flexibility',
+      'Comprehensive health, dental, vision, and mental health coverage'
+    ],
+    salary: '$300K - $500K + Equity'
   },
   {
     id: 2,
-    title: 'Senior Psychological Profiler',
-    department: 'Behavioral Science',
-    location: 'London, UK',
-    type: 'Full-time'
+    title: 'Lead Full-Stack Developer',
+    department: 'Engineering',
+    location: 'Remote',
+    type: 'Full-time',
+    description: 'Architect and develop the core infrastructure powering our behavioral analytics platform. You will lead the development of Node, JubJub, and Guignol systems, building scalable web applications and APIs that handle real-time data processing and visualization for millions of users.',
+    requirements: [
+      'Mastery of multiple programming languages including TypeScript, Python, Rust, and Go',
+      'Architect-level understanding of distributed systems, consensus algorithms, and fault tolerance',
+      'Proven ability to design systems handling millions of concurrent users with sub-100ms latency',
+      'Deep expertise in database internals, query optimization, and custom storage engine design',
+      'Contributions to major open-source projects or creation of widely-adopted libraries/frameworks',
+      'Understanding of cryptography, security protocols, and zero-trust architecture',
+      'Ability to mentor and elevate engineering teams while maintaining hands-on technical excellence'
+    ],
+    benefits: [
+      'Competitive compensation: $250,000 - $400,000 base + equity',
+      'Flexible work schedule with async-first culture',
+      'Top-tier hardware and software tools of your choice',
+      'Annual professional development budget of $25,000',
+      'Stock options with accelerated vesting schedule',
+      'Premium health insurance with family coverage'
+    ],
+    salary: '$250K - $400K + Equity'
   },
   {
     id: 3,
-    title: 'Memetic Engineer',
-    department: 'Social Engineering',
+    title: 'Chief Commercial Officer',
+    department: 'Commercial Strategy',
     location: 'Remote',
-    type: 'Contract'
+    type: 'Executive',
+    description: 'Drive global commercial strategy and revenue growth for our behavioral analytics and influence platforms. You will establish partnerships with Fortune 500 companies, government agencies, and international organizations, positioning our technology as the industry standard for data-driven decision making.',
+    requirements: [
+      'Demonstrated success generating $100M+ in annual revenue for technology or data companies',
+      'Extensive C-suite network across Fortune 500, government, and international organizations',
+      'Proven ability to negotiate and close 8-figure contracts with sovereign entities',
+      'Deep understanding of geopolitical dynamics, regulatory frameworks, and ethical AI governance',
+      'MBA or equivalent from Harvard, Stanford, Wharton, INSEAD, or comparable institution',
+      'Fluency in business strategy, behavioral economics, and complex stakeholder management',
+      'Track record of building and scaling global commercial organizations from ground up'
+    ],
+    benefits: [
+      'Executive compensation: $400,000 - $700,000 base + significant equity stake',
+      'Performance bonuses tied to revenue milestones (up to 200% of base)',
+      'Unlimited travel budget for client meetings and strategic partnerships',
+      'Executive assistant and dedicated operations support',
+      'Board-level strategic input and equity participation',
+      'Comprehensive executive benefits package including concierge services'
+    ],
+    salary: '$400K - $700K + Equity + Bonuses'
   },
   {
     id: 4,
-    title: 'Field Operations Director',
-    department: 'Deployment',
-    location: 'Washington, D.C.',
-    type: 'Full-time'
+    title: 'International Liaison Officer',
+    department: 'Supranational Relations',
+    location: 'Remote',
+    type: 'Full-time',
+    description: 'Serve as the primary interface between JubJub Lab and supranational organizations including the UN, EU, WHO, and other international bodies. You will navigate complex regulatory environments, build strategic relationships with policymakers, and ensure our operations align with international standards while advancing our mission.',
+    requirements: [
+      'Direct relationships with decision-makers in UN agencies, EU institutions, or equivalent bodies',
+      'Advanced degree (JD, PhD, or equivalent) from Oxford, Cambridge, Sciences Po, or top-tier institution',
+      'Native-level fluency in English plus three additional UN official languages',
+      'Deep expertise in international law, data governance, and cross-border regulatory frameworks',
+      'Proven ability to navigate complex bureaucracies and influence policy at the highest levels',
+      'Security clearance or ability to obtain one from major Western government',
+      'Understanding of intelligence community protocols and classified information handling'
+    ],
+    benefits: [
+      'Competitive compensation: $200,000 - $350,000 base + equity',
+      'Diplomatic travel privileges and VIP airport services',
+      'Annual budget for international conferences and relationship building',
+      'Language training and cultural immersion programs',
+      'Flexible schedule accommodating multiple time zones',
+      'Premium global health insurance with emergency evacuation coverage'
+    ],
+    salary: '$200K - $350K + Equity'
+  },
+  {
+    id: 5,
+    title: 'Director of Behavioral Analytics',
+    department: 'Data Science',
+    location: 'Remote',
+    type: 'Full-time',
+    description: 'Lead our behavioral analytics division, developing advanced models for psychographic profiling, personality clustering, and predictive behavioral analysis. You will oversee a team of data scientists and researchers, driving innovation in how we understand and predict human behavior at scale.',
+    requirements: [
+      'PhD in Psychology, Neuroscience, Behavioral Economics, or Cognitive Science from elite institution',
+      'Groundbreaking published research in behavioral modeling with 1000+ citations',
+      'Expertise in psychometric theory, Big Five personality models, and cognitive biases',
+      'Mastery of advanced statistical methods, causal inference, and experimental design',
+      'Proven ability to translate complex psychological research into scalable technical systems',
+      'Deep understanding of ethical considerations in behavioral manipulation and influence',
+      'Recognition in academic community through awards, keynotes, or editorial board positions'
+    ],
+    benefits: [
+      'Competitive compensation: $250,000 - $400,000 base + equity',
+      'Dual-track career allowing continued academic research and publication',
+      'Annual research budget and access to proprietary behavioral datasets',
+      'Collaboration opportunities with leading universities and research institutions',
+      'Sabbatical options for extended research projects',
+      'Comprehensive benefits with mental health and wellness focus'
+    ],
+    salary: '$250K - $400K + Equity'
   }
 ]
+
+const openModal = (job) => {
+  selectedJob.value = job
+  document.body.style.overflow = 'hidden'
+}
+
+const closeModal = () => {
+  selectedJob.value = null
+  uploadedFile.value = null
+  formData.value = { name: '', email: '', linkedin: '', coverLetter: '' }
+  isDragging.value = false
+  document.body.style.overflow = 'auto'
+}
+
+const handleDrop = (e) => {
+  isDragging.value = false
+  const files = e.dataTransfer.files
+  if (files.length > 0) {
+    uploadedFile.value = files[0]
+  }
+}
+
+const handleFileSelect = (e) => {
+  const files = e.target.files
+  if (files.length > 0) {
+    uploadedFile.value = files[0]
+  }
+}
+
+const removeFile = () => {
+  uploadedFile.value = null
+}
+
+const submitApplication = () => {
+  if (!uploadedFile.value) {
+    alert('Please upload your CV')
+    return
+  }
+  
+  // Here you would typically send the data to your backend
+  console.log('Application submitted:', {
+    job: selectedJob.value.title,
+    ...formData.value,
+    cv: uploadedFile.value.name
+  })
+  
+  alert('Application submitted successfully! We will review your application and get back to you soon.')
+  closeModal()
+}
 </script>
+
+<style scoped>
+.modal-enter-active,
+.modal-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.modal-enter-from,
+.modal-leave-to {
+  opacity: 0;
+}
+
+.modal-enter-active .bg-white,
+.modal-leave-active .bg-white {
+  transition: transform 0.3s ease;
+}
+
+.modal-enter-from .bg-white,
+.modal-leave-to .bg-white {
+  transform: scale(0.9);
+}
+</style>
