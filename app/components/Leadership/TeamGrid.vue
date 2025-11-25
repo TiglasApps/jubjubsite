@@ -35,7 +35,7 @@ const team = [
   {
     name: 'Dr. Sarah Mitchell',
     role: 'Head of Behavioral Psychology',
-    image: 'https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?q=80&w=2574&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=2574&auto=format&fit=crop',
     bio: 'Leading expert in psychographic profiling and cognitive pattern analysis. Develops advanced behavioral classification systems.'
   },
   {
