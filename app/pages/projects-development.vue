@@ -1,9 +1,9 @@
 <template>
   <div>
     <PageHeader 
-      title="Drug Development" 
-      subtitle="Translating scientific discoveries into therapies."
-      background-image="https://images.unsplash.com/photo-1576086213369-97a306d36557"
+      title="Projects & Development" 
+      subtitle="Advanced systems for data aggregation, behavioral analysis, and predictive modeling."
+      background-image="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=2734&auto=format&fit=crop"
     />
     
     <DrugDevelopmentPipeline />

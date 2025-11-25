@@ -4,7 +4,7 @@
       
       <!-- Brand -->
       <div class="col-span-1 md:col-span-1">
-        <h2 class="text-2xl font-bold mb-4">Calico</h2>
+        <h2 class="text-2xl font-bold mb-4">JubJub Lab</h2>
         <p class="text-sm text-gray-400 leading-relaxed">
           Mapping the human mind to predict and shape the future.
         </p>
@@ -49,7 +49,7 @@
 
     </div>
     <div class="max-w-7xl mx-auto px-6 mt-12 pt-8 border-t border-white/5 text-center md:text-left text-xs text-gray-500">
-      &copy; 2025 Calico Life Sciences LLC. All rights reserved.
+      &copy; 2025 JubJub Lab. All rights reserved.
     </div>
   </footer>
 </template>

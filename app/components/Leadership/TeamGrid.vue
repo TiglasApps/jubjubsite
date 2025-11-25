@@ -32,40 +32,28 @@
 <script setup lang="ts">
 const team = [
   {
-    name: 'Vitaly K.',
-    role: 'Chief Architect',
-    image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=2574&auto=format&fit=crop',
-    bio: 'A prodigy in cryptographic systems and neural networks. He speaks in code and dreams in algorithms. Rarely seen offline.'
-  },
-  {
-    name: 'Arthur Sterling',
-    role: 'Director of Global Operations',
+    name: 'Dr. Marcus Chen',
+    role: 'Chief Executive Officer',
     image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=2574&auto=format&fit=crop',
-    bio: 'Former intelligence officer turned corporate strategist. He ensures our reach extends everywhere with ruthless efficiency.'
+    bio: 'Visionary leader with expertise in behavioral science and data analytics. Drives strategic direction and oversees all operations.'
   },
   {
-    name: 'Dr. Aiko Tanaka',
+    name: 'Dr. Sarah Mitchell',
     role: 'Head of Behavioral Psychology',
     image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=2569&auto=format&fit=crop',
-    bio: 'Specializes in subconscious influence and mass persuasion. Her methods are as elegant as they are effective.'
+    bio: 'Leading expert in psychographic profiling and cognitive pattern analysis. Develops advanced behavioral classification systems.'
   },
   {
-    name: 'James "Cipher" Wu',
-    role: 'Lead Data Engineer',
-    image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=2574&auto=format&fit=crop',
-    bio: 'Architect of the "Panopticon" data lake. He ensures that no digital footprint goes unrecorded.'
+    name: 'Alex Rivera',
+    role: 'Lead Developer',
+    image: 'https://images.unsplash.com/photo-1578632767115-351597cf2477?q=80&w=2574&auto=format&fit=crop',
+    bio: 'Full-stack developer specializing in AI systems and data infrastructure. Architect of Node and core platform technologies.'
   },
   {
-    name: 'Eleanor Vance',
-    role: 'VP of Strategic Narratives',
-    image: 'https://images.unsplash.com/photo-1598550874175-4d7112ee7f38?q=80&w=2574&auto=format&fit=crop',
-    bio: 'Master of public perception. She crafts the stories that shape societal truths.'
-  },
-  {
-    name: 'Dr. Robert Kim',
-    role: 'Head of Predictive Modeling',
+    name: 'Dr. James Park',
+    role: 'Director of Data Science',
     image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=2574&auto=format&fit=crop',
-    bio: 'Uses advanced statistics to forecast human behavior with terrifying accuracy.'
+    bio: 'Expert in machine learning and predictive modeling. Leads development of behavioral prediction algorithms and cluster analysis.'
   }
 ]
 </script>

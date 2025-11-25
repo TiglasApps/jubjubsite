@@ -9,13 +9,12 @@
   class="backdrop-blur-sm"
 >
   <nav class="max-w-7xl mx-auto flex items-center justify-between py-5 px-6">
-    <NuxtLink to="/" class="text-2xl font-bold hover:opacity-80 transition-opacity">Calico</NuxtLink>
+    <NuxtLink to="/" class="text-2xl font-bold hover:opacity-80 transition-opacity">JubJub Lab</NuxtLink>
 
     <!-- DESKTOP MENU -->
     <ul class="hidden md:flex gap-8 text-lg font-medium">
       <NuxtLink to="/research" class="cursor-pointer hover:opacity-70 transition-opacity">Research & Technology</NuxtLink>
       <NuxtLink to="/projects-development" class="cursor-pointer hover:opacity-70 transition-opacity">Projects</NuxtLink>
-      <NuxtLink to="/partnering" class="cursor-pointer hover:opacity-70 transition-opacity">Partnering</NuxtLink>
       <NuxtLink to="/leadership" class="cursor-pointer hover:opacity-70 transition-opacity">Leadership</NuxtLink>
       <NuxtLink to="/careers" class="cursor-pointer hover:opacity-70 transition-opacity">Careers</NuxtLink>
     </ul>
@@ -37,7 +36,6 @@
     >
       <NuxtLink to="/research" class="cursor-pointer hover:opacity-70" @click="mobileOpen = false">Research & Technology</NuxtLink>
       <NuxtLink to="/projects-development" class="cursor-pointer hover:opacity-70" @click="mobileOpen = false">Projects</NuxtLink>
-      <NuxtLink to="/partnering" class="cursor-pointer hover:opacity-70" @click="mobileOpen = false">Partnering</NuxtLink>
       <NuxtLink to="/leadership" class="cursor-pointer hover:opacity-70" @click="mobileOpen = false">Leadership</NuxtLink>
       <NuxtLink to="/careers" class="cursor-pointer hover:opacity-70" @click="mobileOpen = false">Careers</NuxtLink>
     </div>
